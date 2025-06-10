@@ -15,6 +15,8 @@
 #define TIME_RECOVERY       10U       // Tempo de recuperação (em ciclos de FSM)
 #define TIME_DELAY_US       1000000U  // Atraso de cada ciclo da FSM em microssegundos (1 segundo)
 
+#define CICLO_TIME  5U //exercicio
+
 
 // --- Enumeração Pública para Estados do Conversor ---
 typedef enum

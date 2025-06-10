@@ -1,7 +1,7 @@
 # FIXED
 
 src/fsm.obj: ../src/fsm.c
-src/fsm.obj: C:/Users/guilh/Documents/WSC2000/FSM/inc/fsm.h
+src/fsm.obj: C:/ti/tarefa\ aula/fsm/inc/fsm.h
 src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h
 src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/_ti_config.h
 src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/linkage.h
@@ -13,7 +13,7 @@ src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sy
 src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/machine/_types.h
 src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/machine/_stdint.h
 src/fsm.obj: C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sys/_stdint.h
-src/fsm.obj: C:/Users/guilh/Documents/WSC2000/FSM/device/driverlib.h
+src/fsm.obj: C:/ti/tarefa\ aula/fsm/device/driverlib.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/adc.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/inc/hw_adc.h
@@ -88,11 +88,11 @@ src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/upp.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/inc/hw_upp.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/version.h
 src/fsm.obj: C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h
-src/fsm.obj: C:/Users/guilh/Documents/WSC2000/FSM/device/device.h
+src/fsm.obj: C:/ti/tarefa\ aula/fsm/device/device.h
 
 ../src/fsm.c:
 
-C:/Users/guilh/Documents/WSC2000/FSM/inc/fsm.h:
+C:/ti/tarefa\ aula/fsm/inc/fsm.h:
 
 C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/stdbool.h:
 
@@ -116,7 +116,7 @@ C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/machine/_stdint
 
 C:/ti/ccs1281/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/include/sys/_stdint.h:
 
-C:/Users/guilh/Documents/WSC2000/FSM/device/driverlib.h:
+C:/ti/tarefa\ aula/fsm/device/driverlib.h:
 
 C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/inc/hw_memmap.h:
 
@@ -266,5 +266,5 @@ C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/version.h:
 
 C:/ti/c2000/C2000Ware_5_04_00_00/driverlib/f2837xd/driverlib/driver_inclusive_terminology_mapping.h:
 
-C:/Users/guilh/Documents/WSC2000/FSM/device/device.h:
+C:/ti/tarefa\ aula/fsm/device/device.h:
 

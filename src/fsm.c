@@ -10,6 +10,8 @@ volatile unsigned long g_operationCounter = 0UL;
 
 // --- Implementações das Funções de Evento Simuladas (Internas) ---
 
+static unsigned int contador_ciclos =0U; //exercio proposto para contagem
+
 static unsigned int startup_counter = 0U;
 static bool enable_cmd = false;
 static bool oc_fault_sim = false;
@@ -110,6 +112,7 @@ void state_operating_handler(void)
 {
     g_operationCounter++;
 
+
     if (check_overcurrent_fault())
     {
         g_faultFlags = g_faultFlags | FAULT_OVERCURRENT;
@@ -120,41 +123,66 @@ void state_operating_handler(void)
         g_faultFlags = g_faultFlags | FAULT_OVERVOLTAGE;
         g_converterState = CONVERTER_STATE_FAULT_OVERVOLTAGE;
     }
+    else if (check_overtemp_fault())        //foi adicionado essa condição
+    {
+        g_faultFlags = g_faultFlags | FAULT_TEMPERATURE;
+        g_converterState = CONVERTER_STATE_FAULT_TEMP;
+    }
+    else if (check_comm_error())            //foi adicionado essa condição
+     {
+         g_faultFlags = g_faultFlags | FAULT_COMM_ERROR;
+         g_converterState = CONVERTER_STATE_FAULT_COMM;
+     }
+
 }
 
 void state_fault_overcurrent_handler(void)
 {
-    if (check_recovery_complete())
+
+    contador_ciclos++;
+
+    if (contador_ciclos >= CICLO_TIME)  //tempo de espera conforme exercicio proposto
     {
         g_faultFlags = g_faultFlags & (~FAULT_OVERCURRENT);
         g_converterState = CONVERTER_STATE_RECOVERING;
+        contador_ciclos = 0U;
     }
+
 }
 
 void state_fault_overvoltage_handler(void)
 {
-    if (check_recovery_complete())
+    contador_ciclos++;
+
+    if (contador_ciclos >= CICLO_TIME) //tempo de espera conforme exercicio proposto
     {
         g_faultFlags = g_faultFlags & (~FAULT_OVERVOLTAGE);
         g_converterState = CONVERTER_STATE_RECOVERING;
+        contador_ciclos = 0U;
     }
 }
 
 void state_fault_temp_handler(void)
 {
-    if (check_recovery_complete())
+    contador_ciclos++;
+
+    if (contador_ciclos >= CICLO_TIME) //tempo de espera conforme exercicio proposto
     {
         g_faultFlags = g_faultFlags & (~FAULT_TEMPERATURE);
         g_converterState = CONVERTER_STATE_RECOVERING;
+        contador_ciclos = 0U;
     }
 }
 
 void state_fault_comm_handler(void)
 {
-    if (check_recovery_complete())
+    contador_ciclos++;
+
+    if (contador_ciclos >= CICLO_TIME) //tempo de espera conforme exercicio proposto
     {
         g_faultFlags = g_faultFlags & (~FAULT_COMM_ERROR);
         g_converterState = CONVERTER_STATE_RECOVERING;
+        contador_ciclos = 0U;
     }
 }
 
