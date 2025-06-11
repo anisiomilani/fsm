@@ -48,6 +48,9 @@
 #include "device.h"    // Configurações específicas do dispositivo (TMS320F28379D)
 #include "fsm.h"       // Interface do módulo da Máquina de Estados (seu fsm.h)
 
+//Exercicio
+void initLEDGPIO(void);  //definindo uma função para iniciar os leds
+
 /**
  * main.c
  *
@@ -60,6 +63,10 @@ void main(void)
     // (Funções da DriverLib e device.h)
     Device_init();       // Inicializa o clock do dispositivo e o PIE (Peripheral Interrupt Expansion)
     Device_initGPIO();   // Inicializa as configurações básicas dos pinos GPIO
+
+
+    initLEDGPIO(); //iniciando a função de iniciar os leds
+
 
     // 2. Inicialização do Módulo de Interrupções
     // (As interrupções serão tratadas em detalhes em outra aula,
@@ -89,4 +96,15 @@ void main(void)
         // TIME_DELAY_US é definido em fsm.h e permite ajustar a "velocidade" da simulação.
         DEVICE_DELAY_US(TIME_DELAY_US);
     }
+}
+
+void initLEDGPIO(void)
+{
+    GPIO_setPadConfig(LED_GPIO_PIN_1, GPIO_PIN_TYPE_STD);
+    GPIO_setDirectionMode(LED_GPIO_PIN_1, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(LED_GPIO_PIN_1, 1); // LED inicia desligado (ativo baixo) azul
+
+    GPIO_setPadConfig(LED_GPIO_PIN_2, GPIO_PIN_TYPE_STD);
+    GPIO_setDirectionMode(LED_GPIO_PIN_2, GPIO_DIR_MODE_OUT);
+    GPIO_writePin(LED_GPIO_PIN_2, 1); // LED inicia desligado (ativo baixo) vermelho
 }

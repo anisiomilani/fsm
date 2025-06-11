@@ -10,7 +10,7 @@ volatile unsigned long g_operationCounter = 0UL;
 
 // --- Implementações das Funções de Evento Simuladas (Internas) ---
 
-static unsigned int contador_ciclos =0U; //exercio proposto para contagem
+
 
 static unsigned int startup_counter = 0U;
 static bool enable_cmd = false;
@@ -22,14 +22,19 @@ static unsigned int recovery_counter = 0U;
 
 
 // Protótipos de Funções Handler de Estado (Internas)
-static void state_init_handler(void);
-static void state_standby_handler(void);
-static void state_operating_handler(void);
-static void state_fault_overcurrent_handler(void);
-static void state_fault_overvoltage_handler(void);
-static void state_fault_temp_handler(void);
-static void state_fault_comm_handler(void);
-static void state_recovering_handler(void);
+static void state_init_handler(void);                // leds apagados
+static void state_standby_handler(void);             // leds apagados
+static void state_operating_handler(void);           // led vermelho ligado
+static void state_fault_overcurrent_handler(void);  // led vermelho e azul ligado
+static void state_fault_overvoltage_handler(void);  // led vermelho e azul ligado
+static void state_fault_temp_handler(void);         // led vermelho e azul ligado
+static void state_fault_comm_handler(void);         // led vermelho e azul ligado
+static void state_recovering_handler(void);         // led azul piscando        //iscando o vermelho???
+
+//EXERCICIO
+static void UpdateLEDs(void); //FUNÇÃO ARA ACIONAR OS LEDS
+static unsigned int contador_ciclos = 0U; //exercio proposto para contagem
+
 
 // Typedef Interno para Ponteiro de Função de Handler de Estado
 typedef void (*StateHandler_t_Internal)(void);
@@ -87,6 +92,8 @@ void FSM_RunCycle(void)
     {
         g_converterState = CONVERTER_STATE_FAULT_OVERCURRENT;
     }
+
+    UpdateLEDs(); // Atualiza LEDs conforme estado atual
 }
 
 
@@ -237,4 +244,51 @@ static bool check_recovery_complete(void) {
     if (g_converterState >= CONVERTER_STATE_FAULT_OVERCURRENT && recovery_counter++ > TIME_RECOVERY) {
         recovery_counter = 0U; return true; }
     return false;
+}
+
+
+// FUNÇÃO CRIADA PARA PISCAR OS LEDS
+
+static void UpdateLEDs(void)
+{
+
+    switch (g_converterState)
+    {
+        case CONVERTER_STATE_INIT:
+        case CONVERTER_STATE_STANDBY:
+            GPIO_writePin(LED_GPIO_PIN_2, 1); // azul off
+            GPIO_writePin(LED_GPIO_PIN_1, 1); // vermelho off
+            break;
+
+        case CONVERTER_STATE_OPERATING:
+            GPIO_writePin(LED_GPIO_PIN_2, 1); // azul off
+            GPIO_writePin(LED_GPIO_PIN_1, 0); // vermelho on
+            break;
+
+        case CONVERTER_STATE_FAULT_OVERCURRENT:
+        case CONVERTER_STATE_FAULT_OVERVOLTAGE:
+        case CONVERTER_STATE_FAULT_TEMP:
+        case CONVERTER_STATE_FAULT_COMM:
+            GPIO_writePin(LED_GPIO_PIN_2, 0); // azul om
+            GPIO_writePin(LED_GPIO_PIN_1, 0); // vermelho on
+            break;
+
+        case CONVERTER_STATE_RECOVERING:
+
+             GPIO_writePin(LED_GPIO_PIN_1, 1);                    // vermelho off
+
+            // Azul piscando
+            GPIO_writePin(LED_GPIO_PIN_2, 0);
+            DEVICE_DELAY_US(TIME_PISCA);
+            GPIO_writePin(LED_GPIO_PIN_2, 1);
+            DEVICE_DELAY_US(TIME_PISCA);
+
+            break;
+
+        default:
+            // Em caso de estado indefinido, apaga tudo
+            GPIO_writePin(LED_GPIO_PIN_2, 1);
+            GPIO_writePin(LED_GPIO_PIN_1, 1);
+            break;
+    }
 }
